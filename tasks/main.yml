@@ -1,0 +1,12 @@
+---
+# tasks file for mlnx-ofed
+- shell: ofed_info | head -1
+  register: ofed_version
+  ignore_errors: True
+
+- debug:
+    msg: "MLNX OFED version {{ ofed_version }}"
+
+- include: mlnx-ofed-install.yml
+  when: ofed_version is failed or ofed_version.stdout != expected_version_string ~ ":"
+

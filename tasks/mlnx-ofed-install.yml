@@ -1,0 +1,63 @@
+- name: Download MLNX OFED iso
+  become: yes
+  get_url:
+    url: "{{ url }}"
+    dest: /opt/mlnx-ofed.iso
+    mode: 0755
+    checksum: md5:bb8d5881f875045d9f59811725b808f5
+
+- mount:
+    state: mounted
+    boot: no
+    path: /mnt/mlnx_ofed
+    src: /opt/mlnx-ofed.iso
+    fstype: iso9660
+  become: yes
+
+- name: apt update
+  apt: update_cache=yes
+
+- package:
+    name:
+      - perl
+      - dpkg
+      - autotools-dev
+      - autoconf
+      - libtool
+      - automake
+      - m4
+      - dkms
+      - debhelper
+      - tcl
+      - chrpath
+      - swig
+      - graphviz
+      - tcl-dev
+      - tk-dev
+      - bison
+      - flex
+      - dpatch
+      - zlib1g-dev
+      - curl
+      - libcurl4-gnutls-dev
+      - python-libxml2
+      - libvirt-bin
+      - libvirt0
+      - libnl-3-dev
+      - libglib2.0-dev
+      - libgfortran3
+      - pkg-config
+      - libnuma-dev
+      - logrotate
+      - ethtool
+      - lsof
+    state: latest
+  become: yes
+
+- command: "/mnt/mlnx_ofed/mlnxofedinstall --vma --force"
+  become: yes
+
+- mount:
+    state: unmounted
+    path: /mnt/mlnx_ofed
+  become: yes
