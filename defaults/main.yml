@@ -1,5 +1,4 @@
 ---
 # defaults file for mlnx-ofed
-url: http://content.mellanox.com/ofed/MLNX_OFED-4.7-1.0.0.1/MLNX_OFED_LINUX-4.7-1.0.0.1-ubuntu18.04-x86_64.iso
-version: 4.7-1.0.0.1
-expected_version_string: MLNX_OFED_LINUX-4.7-1.0.0.1 (OFED-4.7-1.0.0)
+mlnx_ofed_url: http://content.mellanox.com/ofed/MLNX_OFED-4.7-1.0.0.1/MLNX_OFED_LINUX-4.7-1.0.0.1-ubuntu18.04-x86_64.iso
+mlnx_ofed_version: 4.7-1.0.0.1

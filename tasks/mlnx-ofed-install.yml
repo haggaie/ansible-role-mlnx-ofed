@@ -1,7 +1,7 @@
 - name: Download MLNX OFED iso
   become: yes
   get_url:
-    url: "{{ url }}"
+    url: "{{ mlnx_ofed_url }}"
     dest: /opt/mlnx-ofed.iso
     mode: 0755
     checksum: md5:bb8d5881f875045d9f59811725b808f5
