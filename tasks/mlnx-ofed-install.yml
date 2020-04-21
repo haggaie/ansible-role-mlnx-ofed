@@ -2,7 +2,7 @@
   become: yes
   get_url:
     url: "{{ mlnx_ofed_url }}"
-    dest: /opt/mlnx-ofed.iso
+    dest: "{{mlnx_ofed_iso_filename}}"
     mode: 0755
     checksum: "{{ mlnx_ofed_iso_checksum }}"
 
@@ -10,7 +10,7 @@
     state: mounted
     boot: no
     path: /mnt/mlnx_ofed
-    src: /opt/mlnx-ofed.iso
+    src: "{{mlnx_ofed_iso_filename}}"
     fstype: iso9660
   become: yes
 

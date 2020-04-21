@@ -1,2 +1,3 @@
 ---
 # vars file for mlnx-ofed
+mlnx_ofed_iso_filename: /opt/mlnx-ofed-{{mlnx_ofed_version}}.iso
