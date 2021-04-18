@@ -5,7 +5,7 @@
     dest: "{{mlnx_ofed_iso_filename}}"
     mode: 0755
     checksum: "{{ mlnx_ofed_iso_checksum }}"
-  when: mlnx_ofed_local_file == ""
+  when: mlnx_ofed_local_file is not defined
 
 - name: Copy local MLNX OFED iso
   become: yes
@@ -14,7 +14,7 @@
     dest: "{{mlnx_ofed_iso_filename}}"
     mode: 0755
     checksum: "{{ mlnx_ofed_iso_checksum }}"
-  when: mlnx_ofed_local_file != ""
+  when: mlnx_ofed_local_file is defined
 
 - mount:
     state: mounted
