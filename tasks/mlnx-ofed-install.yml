@@ -2,7 +2,7 @@
   become: yes
   get_url:
     url: "{{ mlnx_ofed_url }}"
-    dest: "{{mlnx_ofed_iso_filename}}"
+    dest: "{{ mlnx_ofed_iso_filename }}"
     mode: 0755
     checksum: "{{ mlnx_ofed_iso_checksum }}"
   when: mlnx_ofed_local_file is not defined
@@ -11,23 +11,25 @@
   become: yes
   copy:
     src: "{{ mlnx_ofed_local_file }}"
-    dest: "{{mlnx_ofed_iso_filename}}"
+    dest: "{{ mlnx_ofed_iso_filename }}"
     mode: 0755
     checksum: "{{ mlnx_ofed_iso_checksum }}"
   when: mlnx_ofed_local_file is defined
 
-- mount:
+- name: Temporarily mount MLNX OFED iso
+  mount:
     state: mounted
     boot: no
     path: /mnt/mlnx_ofed
-    src: "{{mlnx_ofed_iso_filename}}"
+    src: "{{ mlnx_ofed_iso_filename }}"
     fstype: iso9660
   become: yes
 
 - name: apt update
   apt: update_cache=yes
 
-- package:
+- name: Install package dependencies
+  package:
     name:
       - perl
       - dpkg
@@ -74,10 +76,14 @@
   package: name=libvirt-clients
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'focal'
 
-- command: "/mnt/mlnx_ofed/mlnxofedinstall --vma --upstream-libs --force"
+- name: Run MLNX OFED installation script
+  command: "/mnt/mlnx_ofed/mlnxofedinstall --vma --upstream-libs --force"
   become: yes
+  register: mlnxofedinstallout
+  changed_when: mlnxofedinstallout.rc == 0
 
-- mount:
+- name: Unmount MLNX OFED iso
+  mount:
     state: unmounted
     path: /mnt/mlnx_ofed
   become: yes
