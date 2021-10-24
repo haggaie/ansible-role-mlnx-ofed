@@ -1,10 +1,13 @@
 ---
 # tasks file for mlnx-ofed
-- shell: ofed_info -n
+- name: Check currently installed MLNX OFED version
+  command: ofed_info -n
   register: ofed_version
+  changed_when: false
   ignore_errors: True
 
-- debug:
+- name: Output recorded version
+  debug:
     msg: "MLNX OFED version {{ ofed_version }}"
 
 - include: mlnx-ofed-install.yml
