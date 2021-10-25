@@ -25,10 +25,31 @@
     fstype: iso9660
   become: yes
 
+- name: Install RHEL/CentOS packet dependencies
+  package:
+    name:
+      - createrepo
+      - python-devel
+      - lsof
+      - redhat-rpm-config
+      - rpm-build
+      - gcc
+      - gtk2
+      - atk
+      - cairo
+      - gcc-gfortran
+      - tcsh
+      - libnl
+      - tcl
+      - tk
+    state: latest
+  when: ansible_os_family == 'RedHat'
+
 - name: apt update
   apt: update_cache=yes
+  when: ansible_distribution == 'Ubuntu'
 
-- name: Install package dependencies
+- name: Install Ubuntu package dependencies
   package:
     name:
       - perl
@@ -63,7 +84,7 @@
       - ethtool
       - lsof
     state: latest
-  become: yes
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Ubuntu 18.04 specific packages
   package:
