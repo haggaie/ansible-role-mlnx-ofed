@@ -4,6 +4,7 @@
   command: ofed_info -n
   register: ofed_version
   changed_when: false
+  check_mode: false
   ignore_errors: True
 
 - name: Output recorded version
