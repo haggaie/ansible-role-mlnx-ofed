@@ -77,7 +77,7 @@
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'focal'
 
 - name: Run MLNX OFED installation script
-  command: "/mnt/mlnx_ofed/mlnxofedinstall --vma --upstream-libs --force"
+  command: "/mnt/mlnx_ofed/mlnxofedinstall {{ mlnx_ofed_args }} --force"
   become: yes
   register: mlnxofedinstallout
   changed_when: mlnxofedinstallout.rc == 0

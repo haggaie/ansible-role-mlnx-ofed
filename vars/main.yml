@@ -1,3 +1,18 @@
 ---
 # vars file for mlnx-ofed
-mlnx_ofed_iso_filename: /opt/mlnx-ofed-{{mlnx_ofed_version}}-{{ansible_distribution}}{{ansible_distribution_version}}.iso
+mlnx_ofed_version: 4.7-1.0.0.1
+mlnx_ofed_distro: ubuntu18.04
+mlnx_ofed_kernel_version: "{{ansible_kernel}}"
+mlnx_ofed_url: "{{ mlnx_ofed_base_url }}MLNX_OFED-{{mlnx_ofed_version}}/MLNX_OFED_LINUX-{{mlnx_ofed_version}}-{{mlnx_ofed_distro}}-{{ansible_architecture}}.iso"
+
+# calculate iso filename
+mlnx_ofed_iso_filename: "/opt/mlnx-ofed-{{mlnx_ofed_version}}-{{ansible_distribution}}{{ansible_distribution_version}}.iso"
+
+mlnx_ofed_vma: true
+mlnx_ofed_upstream_libs: true
+mlnx_ofed_add_kernel_support: false
+mlnx_ofed_override_distro: false
+mlnx_ofed_override_kernel: false
+
+mlnx_ofed_args: "{{ '--vma' if mlnx_ofed_vma else '' }} {{ '--upstream-libs' if mlnx_ofed_upstream_libs else '' }} {{ '--add-kernel-support' if mlnx_ofed_add_kernel_support else ''}} {{ '--distro ' + mlnx_ofed_distro if mlnx_ofed_override_distro else ''}} {{ '--kernel ' + mlnx_ofed_kernel_version if mlnx_ofed_override_kernel else ''}}"
+
