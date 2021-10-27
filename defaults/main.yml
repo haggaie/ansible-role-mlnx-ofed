@@ -1,3 +1,4 @@
 ---
 # defaults file for mlnx-ofed
 mlnx_ofed_base_url: https://content.mellanox.com/ofed/
+mlnx_ofed_iso_checksum: ""
