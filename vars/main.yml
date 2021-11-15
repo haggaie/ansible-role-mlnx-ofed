@@ -14,5 +14,11 @@ mlnx_ofed_add_kernel_support: false
 mlnx_ofed_override_distro: false
 mlnx_ofed_override_kernel: false
 
-mlnx_ofed_args: "{{ '--vma' if mlnx_ofed_vma else '' }} {{ '--upstream-libs' if mlnx_ofed_upstream_libs else '' }} {{ '--add-kernel-support' if mlnx_ofed_add_kernel_support else ''}} {{ '--distro ' + mlnx_ofed_distro if mlnx_ofed_override_distro else ''}} {{ '--kernel ' + mlnx_ofed_kernel_version if mlnx_ofed_override_kernel else ''}}"
+mlnx_ofed_args: >-
+    {{ '--vma' if mlnx_ofed_vma else '' }}
+    {{ '--upstream-libs' if mlnx_ofed_upstream_libs else '' }}
+    {{ '--add-kernel-support' if mlnx_ofed_add_kernel_support else ''}}
+    {{ '--distro ' + mlnx_ofed_distro if mlnx_ofed_override_distro else ''}}
+    {{ '--kernel ' + mlnx_ofed_kernel_version if mlnx_ofed_override_kernel else ''}}
+    {{ '--skip-unsupported-devices-check' if skip_unsupported_devices_check else ''}}
 
